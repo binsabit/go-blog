@@ -1,0 +1,17 @@
+output = "boil/psql/models"
+
+wipe = true
+no-tests = true
+pkgname = "boiler"
+
+add-gloabl-variants = true
+
+add-enum-types = true
+
+[psql]
+    dbname = "dbblog"
+    host = "localhost"
+    port = 5432
+    user = "yerda"
+    pass = "postgres"
+    sslmode = "disable"

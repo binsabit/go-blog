@@ -1,0 +1,18 @@
+version: "1.0.0"
+env: "local" 
+storage: 
+  db_driver: "pgx"
+  dsn : "postgresql://yerda:postgres@localhost:5432/dbblog?sslmode=disable"
+  max_open_conns: 10
+  max_idle_conns: 2
+  max_idle_time: "5s"
+  max_life_time: "30s"
+logfile: "./log/log.txt"
+http: 
+  address: ":8080"
+  timeout: "5s"
+  idle: "15s"
+ratelimiter:
+  maxreq: 20
+  expiration: "30s"
+jwt_secret: "reallyahardsecret"
