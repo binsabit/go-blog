@@ -5,7 +5,6 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
-	"github.com/valyala/fasthttp"
 	"golang.org/x/exp/slog"
 )
 
@@ -26,8 +25,7 @@ func NewFiberLogger(logger *slog.Logger) fiber.Handler {
 		DefaultLevel:     slog.LevelInfo,
 		ClientErrorLevel: slog.LevelWarn,
 		ServerErrorLevel: slog.LevelError,
-
-		WithRequestID: true,
+		WithRequestID:    true,
 	})
 }
 
@@ -56,15 +54,16 @@ func NewFiberLoggerWithConfig(logger *slog.Logger, config LoggerConfig) fiber.Ha
 			attributes = append(attributes, slog.String("request-id", requestID))
 		}
 
-		switch {
-		case c.Response().StatusCode() >= fasthttp.StatusBadRequest && c.Response().StatusCode() < fasthttp.StatusInternalServerError:
-			logger.LogAttrs(context.Background(), config.ClientErrorLevel, err.Error(), attributes...)
-		case c.Response().StatusCode() >= fasthttp.StatusInternalServerError:
-			logger.LogAttrs(context.Background(), config.ServerErrorLevel, err.Error(), attributes...)
-		default:
+		if err != nil {
+			switch {
+			case c.Response().StatusCode() >= fiber.StatusBadRequest && c.Response().StatusCode() < fiber.StatusInternalServerError:
+				logger.LogAttrs(context.Background(), config.ClientErrorLevel, err.Error(), attributes...)
+			case c.Response().StatusCode() >= fiber.StatusInternalServerError:
+				logger.LogAttrs(context.Background(), config.ServerErrorLevel, err.Error(), attributes...)
+			}
+		} else {
 			logger.LogAttrs(context.Background(), config.DefaultLevel, "Incoming request", attributes...)
 		}
-
 		return err
 	}
 }
