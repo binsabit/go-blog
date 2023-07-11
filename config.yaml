@@ -15,4 +15,6 @@ http:
 ratelimiter:
   maxreq: 20
   expiration: "30s"
-jwt_secret: "reallyahardsecret"
+jwt:
+  secret: "reallyahardsecret"
+  expiration: "5m"

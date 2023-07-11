@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/valyala/fasthttp"
+	"github.com/volatiletech/null/v8"
 	boiler "github.con/binsabi/go-blog/boil/psql/models"
 	"github.con/binsabi/go-blog/db"
 	lib_json "github.con/binsabi/go-blog/lib/json"
@@ -58,12 +59,15 @@ func (app *Application) GetBlog(ctx *fiber.Ctx) error {
 
 func (app *Application) CreateBlog(ctx *fiber.Ctx) error {
 	var blog boiler.Blog
+
 	err := lib_json.DecodeJSONBody(ctx, &blog)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": err.Error(),
 		})
 	}
+	userID := app.GetIntValueFromJWT(ctx, "user_id")
+	blog.UserID = null.Int{Int: userID, Valid: true}
 	err = db.CreateBlog(context.Background(), app.Storage, &blog)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{

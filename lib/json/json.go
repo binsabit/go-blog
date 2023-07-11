@@ -23,12 +23,6 @@ func (mr *MalformedRequest) Error() string {
 	return mr.Msg
 }
 
-func EncodeJSON(c *fiber.Ctx, env Envelope, status int) error {
-	err := c.JSON(env)
-	c.SendStatus(status)
-	return err
-}
-
 func DecodeJSONBody(c *fiber.Ctx, dst interface{}) error {
 	if c.Get("Content-Type") != "application/json" {
 		msg := "Content-Type header is not application/json"

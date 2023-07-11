@@ -14,7 +14,7 @@ type Config struct {
 	LogFile    string     `mapstructure:"logfile"`
 	Storage    Storage    `mapstructure:"storage"`
 	HTTPServer HTTPServer `mapstructure:"http"`
-	JWT        string     `mapstructure:"jwt_secret"`
+	JWT        JWT        `mapstructure:"jwt"`
 }
 
 type HTTPServer struct {
@@ -30,6 +30,11 @@ type Storage struct {
 	MaxIdleConns int           `mapstructure:"max_idle_conns"`
 	MaxIdleTime  time.Duration `mapstructure:"max_idle_time"`
 	MaxConnLife  time.Duration `mapstructure:"max_life_time"`
+}
+
+type JWT struct {
+	Secret  string        `mapstructure:"secret"`
+	Expires time.Duration `mapstructure:"expiration"`
 }
 
 func MustLoad() *Config {

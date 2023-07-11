@@ -55,3 +55,15 @@ time=2023-07-10T10:59:52.274+06:00 level=INFO msg=jwt
 time=2023-07-10T11:51:43.836+06:00 level=INFO msg=jwt
 time=2023-07-10T13:51:42.141+06:00 level=INFO msg=reallyahardsecret
 time=2023-07-10T13:53:52.581+06:00 level=INFO msg=reallyahardsecret
+time=2023-07-10T15:39:46.795+06:00 level=INFO msg=reallyahardsecret
+time=2023-07-10T15:39:46.935+06:00 level=INFO msg="Incoming request" status=200 method=POST path=/login ip=127.0.0.1 request-id=0c00a9d1-5d5a-4600-b2b1-67c2d4cb1a68
+time=2023-07-10T15:40:03.468+06:00 level=INFO msg="Incoming request" status=201 method=POST path=/comment ip=127.0.0.1 request-id=034671f9-4bc2-4e02-80f6-ad300128d101
+time=2023-07-10T15:42:04.233+06:00 level=INFO msg="Incoming request" status=200 method=GET path=/comments/1 ip=127.0.0.1 request-id=efb55ee5-5cdb-43e9-bc5b-1beed064121e
+time=2023-07-10T15:42:28.797+06:00 level=INFO msg="Incoming request" status=200 method=GET path=/comment/1 ip=127.0.0.1 request-id=ee3d7783-71ca-468e-80ff-f0be0ca6592a
+time=2023-07-10T15:42:55.985+06:00 level=INFO msg="Incoming request" status=200 method=PUT path=/comment/1 ip=127.0.0.1 request-id=5c746c8d-ad73-488c-a3bd-9f9aa74814a2
+time=2023-07-10T15:43:20.205+06:00 level=INFO msg="Incoming request" status=200 method=GET path=/comment/1 ip=127.0.0.1 request-id=3e06b65d-6a3e-4d78-8066-20ad2b154ad1
+time=2023-07-11T10:32:27.248+06:00 level=INFO msg=reallyahardsecret
+time=2023-07-11T10:32:27.260+06:00 level=INFO msg="Incoming request" status=200 method=POST path=/login ip=127.0.0.1 request-id=55e6fb64-0ece-405a-a32b-c16a145728a5
+time=2023-07-11T10:33:59.299+06:00 level=INFO msg="Incoming request" status=201 method=POST path=/signup ip=127.0.0.1 request-id=1e21e301-44c1-4cb3-84db-3e526a00da54
+time=2023-07-11T10:56:13.947+06:00 level=INFO msg=reallyahardsecret
+time=2023-07-11T10:59:32.276+06:00 level=INFO msg=reallyahardsecret

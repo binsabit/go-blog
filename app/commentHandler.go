@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/valyala/fasthttp"
+	"github.com/volatiletech/null/v8"
 	boiler "github.con/binsabi/go-blog/boil/psql/models"
 	"github.con/binsabi/go-blog/db"
 	lib_json "github.con/binsabi/go-blog/lib/json"
@@ -54,13 +55,17 @@ func (app *Application) GetComments(ctx *fiber.Ctx) error {
 }
 func (app *Application) CreateComment(ctx *fiber.Ctx) error {
 	var comment boiler.Comment
-
 	err := lib_json.DecodeJSONBody(ctx, &comment)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": err.Error(),
 		})
 	}
+
+	userID := app.GetIntValueFromJWT(ctx, "user_id")
+
+	comment.UserID = null.Int{Int: userID, Valid: true}
+
 	err = db.MakeComment(context.Background(), app.Storage, &comment)
 
 	if err != nil {

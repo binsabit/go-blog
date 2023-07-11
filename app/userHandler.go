@@ -25,6 +25,7 @@ func (app *Application) Signup(ctx *fiber.Ctx) error {
 	err := lib_json.DecodeJSONBody(ctx, &newUser)
 
 	if err != nil {
+
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": err.Error(),
 		})
@@ -62,21 +63,20 @@ func (app *Application) Login(ctx *fiber.Ctx) error {
 		})
 	}
 
-	day := time.Hour * 24
-	app.Logger.Info(app.Config.JWT)
 	claims := jtoken.MapClaims{
 		"user_id":  user.ID,
 		"username": user.Username,
-		"exp":      time.Now().Add(day).Unix(),
+		"exp":      time.Now().Add(app.Config.JWT.Expires).Unix(),
 	}
 
 	token := jtoken.NewWithClaims(jtoken.SigningMethodHS256, claims)
-	t, err := token.SignedString([]byte(app.Config.JWT))
+	t, err := token.SignedString([]byte(app.Config.JWT.Secret))
 	if err != nil {
 		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"error": err.Error(),
 		})
 	}
+
 	return ctx.JSON(LoginResponse{
 		Token: t,
 	})

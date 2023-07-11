@@ -11,7 +11,7 @@ func (app *Application) RegisterRoutes() {
 	app.Router.Post("/signup", app.Signup)
 	app.Router.Post("/login", app.Login)
 
-	jwt := middlewares.Authenticate(app.Config.JWT)
+	jwt := middlewares.Authenticate(app.Config.JWT.Secret)
 
 	blog := app.Router.Group("/blog", jwt)
 	blog.Get("", app.GetBlogs)
